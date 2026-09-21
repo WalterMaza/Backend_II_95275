@@ -1,2 +1,6 @@
-node_modules/
-.env
+node_modules
+.env.example
+01-inicio.jpg
+02-preguntas.jpg
+03-gracias.jpg
+Break.md
