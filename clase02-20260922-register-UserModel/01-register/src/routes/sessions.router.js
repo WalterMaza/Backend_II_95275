@@ -1,8 +1,13 @@
 import { Router } from 'express';
-import { register } from '../controllers/sessions.controller.js';
+import { login, register } from '../controllers/sessions.controller.js';
 
 const router = Router();
 
 router.post('/register', register);
+router.post('/login', login);
+
+// router.get("/algo", (req, res)=>{
+
+// })
 
 export default router;
