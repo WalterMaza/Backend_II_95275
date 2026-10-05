@@ -26,7 +26,7 @@ const server=app.listen(PORT,()=>{
 
 const conectar=async()=>{
     try {
-        await mongoose.connect("mongodb+srv://coderhouse:codercoder2023@cluster0.wpxpupc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&dbName=comis70145clase02")
+        await mongoose.connect("mongodb+srv://coderhouse:codercoder2023@cluster0.wpxpupc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&dbName=comis95275clase04")
         console.log(`Conexión a DB establecida`)
     } catch (err) {
         console.log(`Error al conectarse con el servidor de BD: ${err}`)
