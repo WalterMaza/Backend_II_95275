@@ -2,7 +2,7 @@ import express from 'express';
 import { config } from './config/env.js';
 import { connectDB } from './config/db.js';
 import { router as sessionsRouter } from './routes/sessions.router.js';
-
+import { router as categoryRouter } from './routes/categoryRouter.js';
 import { router as eventsRouter } from './routes/events.router.js';
 
 import cookieParser from "cookie-parser"
@@ -25,6 +25,7 @@ initPassport()
 
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 app.use("/api/sessions", sessionsRouter)
+app.use("/api/categories", categoryRouter)
 
 //ROLES
 app.use("/api/events", eventsRouter)

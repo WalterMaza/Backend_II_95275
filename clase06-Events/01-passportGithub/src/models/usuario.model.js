@@ -10,9 +10,11 @@ export const usuariosModelo=mongoose.model(
             }, 
             apellido: String, 
             password: String,
+            // profile: Object,
         },
         {
-            timestamps:true
+            timestamps:true,
+            strict: false
         }
     )
 )
