@@ -88,19 +88,19 @@ export const createEvent = async(req, res) => {
         // Tambien podría buscar por descripción, para permitir
         // que lleguen categorias con la descripción "rock", por ej., 
         // como vimos en el get
-        if(!isValidObjectId(category)){
-            res.setHeader('Content-Type','application/json');
-            return res.status(400).json({error:`Ingrese un id válido de categoría`})
-        }
+        // if(!isValidObjectId(category)){
+        //     res.setHeader('Content-Type','application/json');
+        //     return res.status(400).json({error:`Ingrese un id válido de categoría`})
+        // }
     
-        let existe=await CategoryModel.findById(category)
-        if(!existe){
-            res.setHeader('Content-Type','application/json');
-            return res.status(400).json({error:`Categoría inválida`})
-        }
+        // let existe=await CategoryModel.findById(category)
+        // if(!existe){
+        //     res.setHeader('Content-Type','application/json');
+        //     return res.status(400).json({error:`Categoría inválida`})
+        // }
     
         let eventDate=new Date(date)
-        console.log(eventDate, typeof eventDate)
+        // console.log(eventDate, typeof eventDate)
         if(isNaN(eventDate.getTime())){
             // estándar ISO 8601.
             // El formato específico más recomendado es: 

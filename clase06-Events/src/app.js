@@ -4,6 +4,7 @@ import { connectDB } from './config/db.js';
 import { router as sessionsRouter } from './routes/sessions.router.js';
 import { router as categoryRouter } from './routes/categoryRouter.js';
 import { router as eventsRouter } from './routes/events.router.js';
+import { router as ticketsRouter } from './routes/tickets.router.js';
 
 import cookieParser from "cookie-parser"
 import passport from 'passport';
@@ -26,6 +27,7 @@ initPassport()
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 app.use("/api/sessions", sessionsRouter)
 app.use("/api/categories", categoryRouter)
+app.use("/api/tickets", ticketsRouter)
 
 //ROLES
 app.use("/api/events", eventsRouter)

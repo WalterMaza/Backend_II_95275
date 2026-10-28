@@ -85,9 +85,12 @@ export const initPassport=()=>{
                     return done(generateError(`Credenciales inválidas`, undefined, 400))
                 }   
 
-                let {password: pass1, __v, _id, createdAt, updatedAt, ...safeUser} = user
+                let {password: pass1, __v, createdAt, updatedAt, ...safeUser} = user
+
+                console.log("SAFEUSER----> ", safeUser)
 
                 return done(null, safeUser)
+
             } catch (error) {
                 return done(error)
             }
