@@ -6,7 +6,8 @@ import passport from 'passport';
 export const router = Router();
 
 
-router.get("/", passport.authenticate("current", { session: false }), authorizeRoles("admin", "organizer", "user"), getEvents)
+// router.get("/", passport.authenticate("current", { session: false }), authorizeRoles("admin", "organizer", "user"), getEvents)
+router.get("/", getEvents)
 
 router.get("/:eid", passport.authenticate("current", { session: false }), authorizeRoles("admin", "organizer", "user"), getEventById)
 

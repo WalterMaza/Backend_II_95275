@@ -2,6 +2,7 @@ import { isValidObjectId } from "mongoose"
 import { CategoryModel } from "../dao/models/categoryModel.js"
 import { EventModel } from "../dao/models/eventModel.js"
 import { userModel } from "../dao/models/userModel.js"
+import { eventsService } from "../service/index.js"
 
 // export const getEvents = async(req, res) => {
 //     // TODO: Acá implemetar la lógica correspondiente
@@ -13,44 +14,13 @@ import { userModel } from "../dao/models/userModel.js"
 // };
 
 export const getEvents = async (req, res) => {
-    const { category, status, location, fromDate, toDate, search, page = 1, limit = 10, sort = 'date' } = req.query
-    const filter = {}
-    if (category) {
-        if(isValidObjectId(category)){
-            filter.category = category 
-        }else{
-            console.log(category)
-            let cat01=await CategoryModel.findOne({category})
-            if(!cat01){
-                res.setHeader('Content-Type','application/json');
-                return res.status(400).json({error:`Categoria invalida`})
-            }
-            filter.category = cat01._id 
-        }
-    }
-    if (status) { filter.status = status }
-    if (location) { filter.location = { $regex: location, $options: 'i' } }
-    if (fromDate || toDate) {
-        filter.date = {}
-        let from=new Date(fromDate)
-        let to=new Date(toDate)
-        console.log(from)
-        console.log(to)
-        if(isNaN(from.getTime()) || isNaN(to.getTime())){
-            res.setHeader('Content-Type','application/json');
-            return res.status(400).json({error:`Fechas incorrectas`})
-        }
-        if (fromDate) { filter.date.$gte = new Date(fromDate) }
-        if (toDate) { filter.date.$lte = new Date(toDate) }
-    }
-    if (search) { filter.$or = [{ title: { $regex: search, $options: 'i' } }, { description: { $regex: search, $options: 'i' } }] }
-    const pageNumber = Number(page)  
-    const limitNumber = Number(limit)  
-    const skip = (pageNumber - 1) * limitNumber
     try {
-        const events = await EventModel.find(filter).populate('category').populate('organizer', 'first_name last_name email').sort(sort).skip(skip).limit(limitNumber)
-        const totalEvents = await EventModel.countDocuments(filter)
-        res.json({ status: 'success', payload: events, pagination: { total: totalEvents, page: pageNumber, limit: limitNumber, totalPages: Math.ceil(totalEvents / limitNumber) } })
+        // const events = await EventModel.find(filter).populate('category').populate('organizer', 'first_name last_name email').sort(sort).skip(skip).limit(limitNumber)
+        // const totalEvents = await EventModel.countDocuments(filter)
+        const events=await eventsService.getEvents(req.query)
+        // const totalEvents = await EventModel.countDocuments(req.query)
+        const totalEvents = await eventsService.countEvents(req.query)
+        res.json({ status: 'success', payload: events, pagination: { total: totalEvents, page: req.query.page, limit: req.query.limit, totalPages: Math.ceil(totalEvents / req.query.limit) } })
     } catch (error) {
         console.log(error)
         res.setHeader('Content-Type','application/json');
